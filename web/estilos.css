@@ -1,0 +1,14 @@
+﻿* { box-sizing: border-box; }
+body { background: #f1f5f2; color: #193a32; font: 16px/1.5 system-ui, sans-serif; margin: 0; }
+main { max-width: 870px; margin: 25px auto; background: white; padding: clamp(14px,4vw,40px); }
+header { border-bottom: 2px solid #235b4d; }
+h1 { font: 500 clamp(28px,4vw,42px) Georgia, serif; margin: 8px 0 16px; }
+h2 { font-size: 21px; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+th, td { border-bottom: 1px solid #d3ded8; padding: 7px; text-align: right; }
+th:first-child, td:first-child { text-align: left; }
+input[type=text] { max-width: 160px; width: 100%; padding: 9px; border: 1px solid #91a99d; border-radius: 5px; font: inherit; }
+input[type=submit] { background: #185d4e; color: white; border: 0; border-radius: 5px; padding: 10px 20px; margin: 14px 0; font: inherit; cursor: pointer; }
+.resultado { overflow-x: auto; }
+.mejor { background: #e5f3ea; padding: 12px; }
+.error { color: #9a2222; }
