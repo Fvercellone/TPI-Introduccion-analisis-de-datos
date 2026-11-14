@@ -1,4 +1,5 @@
-﻿* { box-sizing: border-box; }
+﻿
+* { box-sizing: border-box; }
 body { background: #f1f5f2; color: #193a32; font: 16px/1.5 system-ui, sans-serif; margin: 0; }
 main { max-width: 870px; margin: 25px auto; background: white; padding: clamp(14px,4vw,40px); }
 header { border-bottom: 2px solid #235b4d; }
