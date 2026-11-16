@@ -12,7 +12,6 @@ namespace Simulador
         {
             lblMensaje.Text = "";
             lblMensaje.CssClass = "";
-            
             decimal capital;
             if (LeerNumero(txtCapital, "Capital inicial", true, out capital) == false)
                 return;
@@ -53,8 +52,32 @@ namespace Simulador
             if (LeerNumero(txtHipotecario3, "Hipotecario - año 3", false, out tasaHipotecario3) == false)
                 return;
 
-            
-            lblMensaje.Text = "Datos válidos.";
+            try
+            {
+                decimal promedioNacion = Calculadora.Promediar(tasaNacion1, tasaNacion2, tasaNacion3);
+                decimal gananciaAnualNacion = Calculadora.CalcularGanancia(capital, promedioNacion, 1);
+                decimal gananciaTrimestralNacion = Calculadora.CalcularGanancia(capital, promedioNacion, 4);
+                decimal gananciaMensualNacion = Calculadora.CalcularGanancia(capital, promedioNacion, 12);
+
+                decimal promedioProvincia = Calculadora.Promediar(tasaProvincia1, tasaProvincia2, tasaProvincia3);
+                decimal gananciaAnualProvincia = Calculadora.CalcularGanancia(capital, promedioProvincia, 1);
+                decimal gananciaTrimestralProvincia = Calculadora.CalcularGanancia(capital, promedioProvincia, 4);
+                decimal gananciaMensualProvincia = Calculadora.CalcularGanancia(capital, promedioProvincia, 12);
+
+                decimal promedioHipotecario = Calculadora.Promediar(tasaHipotecario1, tasaHipotecario2, tasaHipotecario3);
+                decimal gananciaAnualHipotecario = Calculadora.CalcularGanancia(capital, promedioHipotecario, 1);
+                decimal gananciaTrimestralHipotecario = Calculadora.CalcularGanancia(capital, promedioHipotecario, 4);
+                decimal gananciaMensualHipotecario = Calculadora.CalcularGanancia(capital, promedioHipotecario, 12);
+
+                lblMensaje.Text = "Ganancias mensuales: Nación " + gananciaMensualNacion.ToString("C2")
+                    + ", Provincia " + gananciaMensualProvincia.ToString("C2")
+                    + ", Hipotecario " + gananciaMensualHipotecario.ToString("C2");
+            }
+            catch (OverflowException)
+            {
+                lblMensaje.Text = "Los valores superan la capacidad de cálculo. Ingresá importes o tasas menores.";
+                lblMensaje.CssClass = "error";
+            }
         }
 
         private bool LeerNumero(TextBox campo, string descripcion, bool esCapital, out decimal valor)
@@ -82,6 +105,5 @@ namespace Simulador
             }
             return true;
         }
-       
     }
 }

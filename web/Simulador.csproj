@@ -34,6 +34,7 @@
     <Content Include="Default.aspx" />
     <Content Include="Web.config" />
     <Content Include="estilos.css" />
+    <Compile Include="Calculadora.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -52,7 +53,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:60975/</IISUrl>
+          <IISUrl>http://localhost:55900/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

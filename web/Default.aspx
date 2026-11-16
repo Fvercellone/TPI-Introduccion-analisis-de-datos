@@ -1,12 +1,10 @@
 ﻿<%@ Page Language="C#" CodeBehind="Default.aspx.cs" Inherits="Simulador.Inicio" ResponseEncoding="utf-8" %>
-
 <!doctype html>
 <html lang="es-AR">
 <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Simulador de plazos fijos</title><link rel="stylesheet" href="estilos.css"/></head>
 <body><main>
 <header><small>UTN · Análisis de datos</small><h1>Simulador de plazos fijos</h1></header>
 <form id="formulario" runat="server">
-
 <p><asp:Label ID="lblCapital" runat="server" AssociatedControlID="txtCapital" Text="Capital inicial en pesos"/>
 <asp:TextBox ID="txtCapital" runat="server" Text="850000"/></p>
 <h2>Tasas nominales anuales (%)</h2>
@@ -30,7 +28,6 @@
 </tbody></table>
 <asp:Button ID="btnCalcular" runat="server" Text="Calcular" OnClick="btnCalcular_Click"/>
 <p role="status"><asp:Label ID="lblMensaje" runat="server"/></p>
-
 
 </form>
 </main></body></html>
