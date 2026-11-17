@@ -6,18 +6,16 @@ using System.Web.UI.WebControls;
 
 namespace Simulador
 {
-    // C01 - PERSONA 1: clase de la página.
+    
     public partial class Inicio : Page
     {
-        // C02 - PERSONA 1: evento que se ejecuta al presionar Calcular.
-        // Las incorporaciones de las siguientes etapas están delimitadas dentro del método.
         protected void btnCalcular_Click(object sender, EventArgs e)
         {
             lblMensaje.Text = "";
             lblMensaje.CssClass = "";
-            // C05: oculta los resultados anteriores antes de validar.
+            
             pnlResultados.Visible = false;
-            // INICIO C03 - PERSONA 2: leer y validar cada entrada.
+            
             decimal capital;
             if (LeerNumero(txtCapital, "Capital inicial", true, out capital) == false)
                 return;
@@ -58,8 +56,6 @@ namespace Simulador
             if (LeerNumero(txtHipotecario3, "Hipotecario - año 3", false, out tasaHipotecario3) == false)
                 return;
 
-            // FIN C03
-            // INICIO C04 - PERSONA 2: promedios y ganancias con variables explícitas.
             try
             {
                 decimal promedioNacion = Calculadora.Promediar(tasaNacion1, tasaNacion2, tasaNacion3);
@@ -77,7 +73,7 @@ namespace Simulador
                 decimal gananciaTrimestralHipotecario = Calculadora.CalcularGanancia(capital, promedioHipotecario, 4);
                 decimal gananciaMensualHipotecario = Calculadora.CalcularGanancia(capital, promedioHipotecario, 12);
 
-                // INICIO C05 - PERSONA 3: una fila de la lista por banco.
+                
                 List<FilaResultado> resultados = new List<FilaResultado>();
                 resultados.Add(new FilaResultado
                 {
@@ -103,19 +99,16 @@ namespace Simulador
                 grdGanancias.DataSource = resultados;
                 grdGanancias.DataBind();
                 pnlResultados.Visible = true;
-                // FIN C05
+
+                MostrarMejorOpcion(resultados);
             }
             catch (OverflowException)
             {
                 lblMensaje.Text = "Los valores superan la capacidad de cálculo. Ingresá importes o tasas menores.";
                 lblMensaje.CssClass = "error";
             }
-            // FIN C04
         }
 
-        // INICIO C03 - PERSONA 2
-        // Convierte el texto a decimal y muestra el primer error encontrado.
-        // "out valor" entrega el número convertido a la variable de quien llama.
         private bool LeerNumero(TextBox campo, string descripcion, bool esCapital, out decimal valor)
         {
             bool valido = decimal.TryParse(campo.Text.Trim(), NumberStyles.AllowDecimalPoint | NumberStyles.AllowLeadingSign,
@@ -141,6 +134,47 @@ namespace Simulador
             }
             return true;
         }
-        // FIN C03
+        private void MostrarMejorOpcion(List<FilaResultado> resultados)
+        {
+            decimal mayorGanancia = -1m;
+            string mejoresOpciones = "";
+            foreach (FilaResultado fila in resultados)
+            {
+                if (fila.Anual > mayorGanancia)
+                {
+                    mayorGanancia = fila.Anual;
+                    mejoresOpciones = "";
+                }
+                if (fila.Anual == mayorGanancia)
+                {
+                    if (mejoresOpciones.Length > 0)
+                        mejoresOpciones += " / ";
+                    mejoresOpciones += fila.Banco + " · anual";
+                }
+                if (fila.Trimestral > mayorGanancia)
+                {
+                    mayorGanancia = fila.Trimestral;
+                    mejoresOpciones = "";
+                }
+                if (fila.Trimestral == mayorGanancia)
+                {
+                    if (mejoresOpciones.Length > 0)
+                        mejoresOpciones += " / ";
+                    mejoresOpciones += fila.Banco + " · trimestral";
+                }
+                if (fila.Mensual > mayorGanancia)
+                {
+                    mayorGanancia = fila.Mensual;
+                    mejoresOpciones = "";
+                }
+                if (fila.Mensual == mayorGanancia)
+                {
+                    if (mejoresOpciones.Length > 0)
+                        mejoresOpciones += " / ";
+                    mejoresOpciones += fila.Banco + " · mensual";
+                }
+            }
+            lblMejor.Text = "Mayor ganancia: " + mayorGanancia.ToString("C2") + ". " + mejoresOpciones;
+        }
     }
 }
