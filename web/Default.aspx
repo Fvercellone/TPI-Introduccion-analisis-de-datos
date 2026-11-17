@@ -1,10 +1,12 @@
 ﻿<%@ Page Language="C#" CodeBehind="Default.aspx.cs" Inherits="Simulador.Inicio" ResponseEncoding="utf-8" %>
+<%-- C01 - PERSONA 1: estructura inicial y UTF-8. --%>
 <!doctype html>
 <html lang="es-AR">
 <head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>Simulador de plazos fijos</title><link rel="stylesheet" href="estilos.css"/></head>
 <body><main>
 <header><small>UTN · Análisis de datos</small><h1>Simulador de plazos fijos</h1></header>
 <form id="formulario" runat="server">
+<%-- INICIO C02 - PERSONA 1: campos, botón y mensaje. --%>
 <p><asp:Label ID="lblCapital" runat="server" AssociatedControlID="txtCapital" Text="Capital inicial en pesos"/>
 <asp:TextBox ID="txtCapital" runat="server" Text="850000"/></p>
 <h2>Tasas nominales anuales (%)</h2>
@@ -28,6 +30,20 @@
 </tbody></table>
 <asp:Button ID="btnCalcular" runat="server" Text="Calcular" OnClick="btnCalcular_Click"/>
 <p role="status"><asp:Label ID="lblMensaje" runat="server"/></p>
+<%-- FIN C02 --%>
+<%-- INICIO C05 - PERSONA 3: grilla de ganancias. --%>
+<asp:Panel ID="pnlResultados" runat="server" Visible="false" CssClass="resultado" aria-live="polite">
+  <h2>Ganancia al cabo de un año</h2>
+  <asp:GridView ID="grdGanancias" runat="server" AutoGenerateColumns="false" GridLines="None">
+    <Columns>
+      <asp:BoundField DataField="Banco" HeaderText="Banco"/>
+      <asp:BoundField DataField="Anual" HeaderText="Anual" DataFormatString="{0:C2}"/>
+      <asp:BoundField DataField="Trimestral" HeaderText="Trimestral" DataFormatString="{0:C2}"/>
+      <asp:BoundField DataField="Mensual" HeaderText="Mensual" DataFormatString="{0:C2}"/>
+    </Columns>
+  </asp:GridView>
 
+</asp:Panel>
+<%-- FIN C05 --%>
 </form>
 </main></body></html>
